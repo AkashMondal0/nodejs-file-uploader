@@ -25,7 +25,7 @@ const uploadFile = () => {
         }
     });
     const upload = multer({ storage: storage, dest: `../storage/` });
-    return upload.single("file");
+    return upload.single("image");
 }
 
 

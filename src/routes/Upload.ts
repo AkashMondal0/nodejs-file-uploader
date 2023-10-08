@@ -7,7 +7,7 @@ router.post(`/:folderName/`, uploadFile(), async (req, res) => {
         return res.status(400).send('No files were uploaded.');
     }
     // http://localhost:3000/storage/profile/skysolo/1696707749075-FB_IMG_1664296698023.jpg
-    return res.json({ "fileUrl": `${process.env.PRODUCTION_HOST}/storage/${req.params.folderName}/${req.file.filename}` });
+    return res.redirect(`${process.env.PRODUCTION_HOST}/storage/${req.params.folderName}/${req.file.filename}`)
 });
 
 
