@@ -3,11 +3,12 @@ import path from 'path';
 import fs from 'fs';
 
 export type Upload_Routes = "profile" | "post" | "comment" | "reply"
+export type Upload_Type = "single" | "multiple"
 
-const uploadFile = () => {
+export const uploadFile = (upload_Type:Upload_Type,uploadCount?:number) => {
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
-            let pathName = path.join(__dirname, `../storage/`, req.params.folderName);
+            let pathName = path.join(__dirname, `../storage/`, req.params.userId);
             let stat = null;
             try {
                 stat = fs.statSync(pathName);
@@ -25,8 +26,10 @@ const uploadFile = () => {
         }
     });
     const upload = multer({ storage: storage, dest: `../storage/` });
-    return upload.single("image");
+
+    if (upload_Type === "multiple") {
+        return upload.array("file", uploadCount);
+    }
+    
+    return upload.single("file");
 }
-
-
-export default uploadFile;
