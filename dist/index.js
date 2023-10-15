@@ -9,7 +9,7 @@ const User_1 = __importDefault(require("./routes/User"));
 const File_1 = __importDefault(require("./routes/File"));
 dotenv_1.default.config();
 const host = process.env.PRODUCTION_HOST || 'http://localhost:4000';
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
