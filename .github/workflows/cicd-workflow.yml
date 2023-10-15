@@ -4,26 +4,30 @@ on:
     branches: [ master ]
 jobs:
   build:
-    runs-on: [ubuntu-latest]
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - name: Login To Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
-      - name: Build the Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }} .
-      - name: Push the Docker image to the repository
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+        # download all dependencies and build the project
+      - name: Install Node Dependencies
+        run: sudo npm install && sudo npm run build
+        # docker build and push to docker hub
+      # - name: Login To Docker Hub
+      #   run: sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      - name: Build The Docker Image
+        run: sudo docker build -t sky-storage .
+      # - name: Push the Docker image to the repository
+      #   run: sudo docker push sky-storage:latest
 
   deploy:
     needs: build
-    runs-on: [aws-ec2]
+    runs-on: self-hosted
     steps:
-      - name: Pull image from Docker Hub
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-      - name: delete container
-        run: docker rm -f ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+        # pull the image from docker hub and run it
+      # - name: Pull image from Docker Hub
+      #   run: sudo docker pull sky-storage:latest
+      - name: Delete Previous container
+        run: sudo docker rm -f sky-storage || true
       - name: Run docker container
-        run: docker run -d -p 4000:4000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
+        run: sudo docker run --name sky-storage -d -p 4001:4001 sky-storage:latest
 
 
