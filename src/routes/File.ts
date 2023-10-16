@@ -24,7 +24,7 @@ router.post('/multiple/:userId/', uploadFile("multiple", 5), function (req, res,
     let fileLocations: string[] = [];
 
     files.forEach((file: Express.Multer.File) => {
-        fileLocations.push(`${process.env.PRODUCTION_HOST}/file/${req.params.userId}/${file.filename}`);
+        fileLocations.push(`${process.env.HOST}/file/${req.params.userId}/${file.filename}`);
     })
     return res.status(200).json({ urls: fileLocations })
 })
