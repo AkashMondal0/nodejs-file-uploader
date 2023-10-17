@@ -10,8 +10,8 @@ router.post(`/single/:userId/`, uploadFile("single"), async (req, res) => {
         return res.status(400).send('No files were uploaded.');
     }
     //example - http://localhost:3000/file/1696707749075-FB_IMG_1664296698023.jpg
-    // return res.status(200).send(`${process.env.PRODUCTION_HOST}/file/${req.params.userId}/${req.file.filename}`);
-    return res.redirect(`${process.env.PRODUCTION_HOST}/file/${req.params.userId}/${req.file.filename}`);
+    return res.status(200).send(`${process.env.HOST}/file/${req.params.userId}/${req.file.filename}`);
+    // return res.redirect(`${process.env.PRODUCTION_HOST}/file/${req.params.userId}/${req.file.filename}`);
 });
 
 //! upload multiple files

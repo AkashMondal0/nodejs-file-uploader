@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "pm2 start dist/index.js --name sky-storage",
+    "start": "pm2 start ecosystem.config.j",
     "dev": "nodemon src/index.ts"
   },
   "keywords": [],
