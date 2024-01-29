@@ -1,0 +1,18 @@
+version: '3'
+services:
+  storage:
+    image: akashmondal0/sky-storage:latest
+    ports:
+      - 4001:4001
+    container_name: storage
+    volumes:
+      - ./storage:/app/storage
+    networks:
+      - my_network
+    environment:
+      - PORT=4001
+      - HOST=http://13.127.232.152:4001
+networks:
+  my_network:
+volumes:
+  skyincData:

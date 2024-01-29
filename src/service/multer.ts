@@ -8,7 +8,7 @@ export type Upload_Type = "single" | "multiple"
 export const uploadFile = (upload_Type:Upload_Type,uploadCount?:number) => {
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
-            let pathName = path.join(__dirname, `../storage/`, req.params.userId);
+            let pathName = path.join(__dirname, `../../storage/`, req.params.userId);
             let stat = null;
             try {
                 stat = fs.statSync(pathName);
